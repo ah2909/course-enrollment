@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: course-enrollment
+    ports:
+      - "3000:3000"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    volumes:
+      - .:/usr/src/app
+    command: npm run dev

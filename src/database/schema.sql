@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS courses (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  difficulty TEXT CHECK(difficulty IN ('Beginner', 'Intermediate', 'Advanced')) NOT NULL,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS enrollments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  studentEmail TEXT NOT NULL,
+  courseId INTEGER NOT NULL,
+  enrolledAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (courseId) REFERENCES courses(id) ON DELETE CASCADE,
+  UNIQUE(studentEmail, courseId)
+);
