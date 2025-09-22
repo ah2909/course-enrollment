@@ -10,4 +10,6 @@ RUN npm install
 
 COPY . .
 
+RUN mkdir -p ./data && chmod -R 666 ./data
+
 EXPOSE 3000

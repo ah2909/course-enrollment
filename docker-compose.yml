@@ -12,4 +12,5 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+      - ./data:/usr/src/app/data
     command: npm run dev
