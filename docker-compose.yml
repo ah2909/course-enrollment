@@ -11,4 +11,3 @@ services:
       - 1.1.1.1
     volumes:
       - .:/usr/src/app
-    command: npm run dev
