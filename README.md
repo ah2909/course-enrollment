@@ -4,29 +4,20 @@ A RESTful API for managing course enrollments, built with Express.js, TypeScript
 
 ## Features
 
--   Course management (create, list)
--   Student enrollment management
--   Input validation using Joi
--   SQLite database with automated schema creation
--   Docker support
-
-## Prerequisites
-
--   Node.js (v24 or later)
--   npm
--   Docker (optional)
+- Course management (create, list)
+- Student enrollment management
 
 ## Installation
 
 1. Clone the repository
-2. Install dependencies:
-
+```sh
+git clone https://github.com/ah2909/course-enrollment.git
+```
+2. Install dependencies
 ```sh
 npm install
 ```
-
-## Running the Application
-
+3. Run locally (development)
 ```sh
 npm run dev
 ```
@@ -40,7 +31,6 @@ docker-compose up
 ## Database
 
 The application uses SQLite and automatically:
-
 -   Creates database schema on startup
 -   Seeds initial course data if the database is empty
 
@@ -49,15 +39,18 @@ The application uses SQLite and automatically:
 ### Courses
 
 #### List all courses
+- `GET /courses`
 
--   `GET /courses`
--   Response: List of all available courses
+```sh
+curl http://localhost:3000/courses
+```
+
+- Response: List of all available courses
 
 #### Create a course
 
--   `POST /courses`
--   Body:
-
+- `POST /courses`
+- Body:
 ```json
 {
   "title": "Course Title",
@@ -66,43 +59,58 @@ The application uses SQLite and automatically:
 }
 ```
 
+```sh
+curl -X POST http://localhost:3000/courses \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Machine Learning","description":"Intro to ML","difficulty":"Intermediate"}'
+```
+
 ### Enrollments
 
 #### Enroll in a course
 
--   `POST /enrollments`
--   Body:
-
+- `POST /enrollments`
+- Body:
 ```json
 {
-	"courseId": 1,
-	"studentEmail": "student@example.com"
+  "courseId": 1,
+  "studentEmail": "student@example.com"
 }
+```
+
+```sh
+curl -X POST http://localhost:3000/enrollments \
+  -H "Content-Type: application/json" \
+  -d '{"courseId":1,"studentEmail":"test@gmail.com"}'
 ```
 
 #### Get student enrollments
 
--   `GET /student/:email/enrollments`
--   Returns all courses a student is enrolled in
+- `GET /student/:email/enrollments`
+```sh
+curl http://localhost:3000/student/test@gmail.com/enrollments
+```
+
+- Response all courses a student is enrolled in
 
 ## Testing
 
-Run the test suite:
-
+Run tests locally:
 ```sh
 npm test
 ```
 
-### Run tests in Docker container directly
+Run tests inside Docker container:
 ```sh
 docker exec -it course-enrollment npm test
 ```
 
 ## Environment Variables
-
 Create a `.env` file in the root directory:
-
 ```
 PORT=3000
-SECRET_KEY=your-secret-key
 ```
+
+## Live Demo
+- Frontend is deployed on Vercel: https://course-enrollment-fe.vercel.app/
+- Backend API is deployed on a VPS with Docker: https://demo.cryptofolio.io.vn/
